@@ -516,8 +516,7 @@ button:hover {
     width: 100%;
 }
 
-.input-container input, 
-.input-container textarea {
+.input-container input,  {
     width: 100%;
     padding: 15px 12px;
     border: 2px solid #eee; /* Bordure un peu plus épaisse pour le tactile */
