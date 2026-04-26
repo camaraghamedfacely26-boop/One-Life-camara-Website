@@ -553,6 +553,7 @@ button:hover {
 .input-container textarea + label {
     top: 25px;
     transform: translateY(-30%);
+    left: 9px;
 }
 
 /* LA MONTÉE DU LABEL (Action !) */
