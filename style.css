@@ -552,8 +552,8 @@ button:hover {
 /* Cas spécial pour le textarea (le label commence plus haut) */
 .input-container textarea + label {
     top: 25px;
-    transform: translateY(-30%);
-    left: 5px;
+    transform: translateY(-30%) scale(0.85); /* Il devient un peu plus petit */;
+    left: 1px;
 }
 
 /* LA MONTÉE DU LABEL (Action !) */
