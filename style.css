@@ -261,48 +261,58 @@ button:hover {
     gap: 10px;
     padding: 15px !important;
 }
-/* Le conteneur doit être en position relative */
+/* Le conteneur du champ */
 .input-container {
     position: relative;
     margin-bottom: 25px;
+    width: 100%;
 }
-/* Style de l'input */
-.input-container input,
+
+/* Le champ de saisie */
+.input-container input, 
 .input-container textarea {
     width: 100%;
-    padding: 12px;
-    border: 1px solid #ddd;
+    padding: 15px 10px;
+    border: 1px solid #ccc;
     border-radius: 8px;
-    background: transparent;
+    font-size: 16px; /* Taille idéale pour mobile pour éviter le zoom auto */
+    background: white; /* Force le fond blanc */
     outline: none;
-    font-size: 1rem;
-    transition: 0.3s;
+    display: block;
+    appearance: none; /* Enlève les styles bizarres sur iPhone */
 }
-/* Style du Label (le faux placeholder) */
+
+/* Le label centré au milieu par défaut */
 .input-container label {
     position: absolute;
     left: 12px;
     top: 50%;
     transform: translateY(-50%);
-    background: white; /* Pour cacher la bordure quand il monte */
+    background: white; /* Très important pour couper la bordure */
     padding: 0 5px;
     color: #999;
-    pointer-events: none; /* Permet de cliquer à travers le label */
-    transition: 0.3s;
+    transition: all 0.2s ease-in-out;
+    pointer-events: none; /* Permet de cliquer à travers pour toucher l'input */
+    z-index: 10;
 }
-/* Cas spécial pour le Textarea (on met le label en haut au début) */
+
+/* Pour le textarea, on le cale un peu plus haut au début */
 .input-container textarea + label {
-    top: 20px;
+    top: 25px;
 }
-/* --- L'ANIMATION QUAND ON CLIQUE OU QU'ON ÉCRIT --- */
+
+/* LA MAGIE DU MOUVEMENT (Fonctionne sur PC et Mobile) */
+/* On ajoute :placeholder-shown pour détecter si le champ est vide ou pas */
+
 .input-container input:focus + label,
 .input-container input:not(:placeholder-shown) + label,
 .input-container textarea:focus + label,
 .input-container textarea:not(:placeholder-shown) + label {
-    top: 0; /* Il monte en haut de la bordure */
-    font-size: 0.8rem;
-    color: var(--primary); /* Il change de couleur (violet) */
+    top: 0 !important; /* On force la montée tout en haut */
+    transform: translateY(-50%) scale(0.85);
+    color: #6c63ff;
     font-weight: bold;
+    z-index: 11;
 }
 /* Changement de bordure de l'input quand on clique */
 .input-container input:focus,
@@ -497,17 +507,78 @@ button:hover {
         position: relative;
         z-index: 2;
     }
-    /* Le label au milieu par défaut */
+    /* --- OPTIMISATION FORMULAIRE MOBILE --- */
+
+.input-container {
+    position: relative;
+    margin-top: 25px; /* Plus d'espace pour que le label monte sans toucher le champ du haut */
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.input-container input, 
+.input-container textarea {
+    width: 100%;
+    padding: 15px 12px;
+    border: 2px solid #eee; /* Bordure un peu plus épaisse pour le tactile */
+    border-radius: 10px;
+    font-size: 16px; /* INDISPENSABLE : évite le zoom auto forcé sur iPhone */
+    background: white;
+    outline: none;
+    transition: border-color 0.3s;
+    -webkit-appearance: none; /* Nettoie le style par défaut sur iOS */
+}
+
+/* Couleur de bordure quand on clique */
+.input-container input:focus, 
+.input-container textarea:focus {
+    border-color: #6c63ff;
+}
+
+/* Le Label : Centré par défaut */
 .input-container label {
     position: absolute;
-    left: 12px;
-    top: 35%;
+    left: 15px;
+    top: 50%;
     transform: translateY(-50%);
-    background: white; /* Fond blanc pour masquer la bordure */
-    padding: 0 5px;
+    background: white; 
+    padding: 0 8px; /* Un peu plus large pour bien couper la bordure */
     color: #999;
-    transition: 0.2s ease-all;
+    font-size: 16px;
+    transition: all 0.2s ease-out;
     pointer-events: none;
+    z-index: 5;
+}
+
+/* Cas spécial pour le textarea (le label commence plus haut) */
+.input-container textarea + label {
+    top: 25px;
+}
+
+/* LA MONTÉE DU LABEL (Action !) */
+/* Fonctionne quand on clique (focus) ou quand le champ n'est pas vide */
+.input-container input:focus + label, 
+.input-container input:not(:placeholder-shown) + label,
+.input-container textarea:focus + label,
+.input-container textarea:not(:placeholder-shown) + label {
+    top: 0 !important;
+    transform: translateY(-50%) scale(0.85); /* Il devient un peu plus petit */
+    color: #6c63ff;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+/* --- AJUSTEMENT GLOBAL MOBILE --- */
+@media (max-width: 768px) {
+    .partie2 {
+        padding: 20px 15px; /* Moins de marge sur les côtés pour gagner de la place */
+    }
+    
+    .btn-envoi {
+        width: 100%; /* Le bouton prend toute la largeur sur mobile, plus facile à cliquer */
+        padding: 15px;
+    }
+}
 }
 }
 @keyframes apparition {
@@ -516,39 +587,4 @@ button:hover {
 }
 
 
-/* Conteneur du champ */
-.input-container {
-    position: relative;
-    margin-top: 20px; /* Espace pour laisser le label monter */
-    margin-bottom: 20px;
-}
 
-/* Le champ de saisie */
-.input-container input, 
-.input-container textarea {
-    width: 100%;
-    padding: 15px 10px; /* Plus d'espace interne */
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    font-size: 16px;
-    background: transparent;
-    outline: none;
-}
-
-/* Le label au milieu par défaut */
-.input-container label {
-    position: absolute;
-    left: 12px;
-    top: 35%;
-    transform: translateY(-50%);
-    background: white; /* Fond blanc pour masquer la bordure */
-    padding: 0 5px;
-    color: #999;
-    transition: 0.2s ease-all;
-    pointer-events: none;
-}
-
-/* Pour le textarea, on aligne le label un peu plus haut au début */
-.input-container textarea + label {
-    top: 25px;
-}
