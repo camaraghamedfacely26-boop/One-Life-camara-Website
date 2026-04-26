@@ -469,10 +469,11 @@ button:hover {
     }
 } /* --- IMAGE DE BACKGROUND MOBILE --- */
 @media screen and (max-width: 768px) {
+    
     /* La section où tu veux ton image (ex: .hero ou body) */
     #hero {
         /* On force l'affichage de l'image pour mobile */
-        background-image: url('Charity Gala Event Fundraiser Non-profit Website in Dark Green Beige Style (2).png') !important;
+        background-image: url('imageaa.png') !important;
         /* RÉGLAGES CRUCIAUX POUR MOBILE */
         background-position: center top; /* Centre horizontalement, en haut verticalement */
         background-size: cover; /* L'image remplit tout l'espace sans se déformer */
@@ -496,8 +497,50 @@ button:hover {
         position: relative;
         z-index: 2;
     }
+
+    .input-container label {
+        top: 35px;
+    }
 }
 @keyframes apparition {
     from { transform: scale(0.7); opacity: 0; }
     to { transform: scale(1); opacity: 1; }
+}
+
+
+/* Conteneur du champ */
+.input-container {
+    position: relative;
+    margin-top: 20px; /* Espace pour laisser le label monter */
+    margin-bottom: 20px;
+}
+
+/* Le champ de saisie */
+.input-container input, 
+.input-container textarea {
+    width: 100%;
+    padding: 15px 10px; /* Plus d'espace interne */
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    background: transparent;
+    outline: none;
+}
+
+/* Le label au milieu par défaut */
+.input-container label {
+    position: absolute;
+    left: 12px;
+    top: 35%;
+    transform: translateY(-50%);
+    background: white; /* Fond blanc pour masquer la bordure */
+    padding: 0 5px;
+    color: #999;
+    transition: 0.2s ease-all;
+    pointer-events: none;
+}
+
+/* Pour le textarea, on aligne le label un peu plus haut au début */
+.input-container textarea + label {
+    top: 25px;
 }
